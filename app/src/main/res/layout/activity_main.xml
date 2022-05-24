@@ -28,7 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="20dp"
-        android:text="tv_nickname"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="118dp"
@@ -43,5 +42,12 @@
         android:gravity="center_horizontal"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:text="Nickname" />
+        android:hint="nickname"/>
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="startGame"
+        android:text="PLAY" />
 </LinearLayout>
