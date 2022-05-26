@@ -7,19 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Ranking extends AppCompatActivity {
-   // RecyclerView recyclerView;
-   // RecyclerView.LayoutManager layoutManager;
-   // PlayerAdapter playerAdapter;
-   // ArrayList<Player> dataSet;
-    //String nickname;
     TextView textView;
-
-    ActivityResultLauncher<Intent> myActivityResultLauncher;
+    PlayerController playerController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,25 +24,12 @@ public class Ranking extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textView = findViewById(R.id.titulo);
+        playerController = new PlayerController(getApplication());
 
-//        recyclerView = (RecyclerView) findViewById(R.id.rv_items);
-//
-//        if(savedInstanceState == null) {
-//            dataSet = new ArrayList<>();
-//            playerAdapter = new PlayerAdapter(dataSet);
-//            recyclerView.setAdapter(playerAdapter);
-//        }
-//
-//        layoutManager = new LinearLayoutManager((this));
-//        recyclerView.setLayoutManager(layoutManager);
-//
-//        //ho llegeix de la base de dades
-//        Bundle extras = getIntent().getExtras();
-//        if(extras != null) {
-//            nickname = extras.getString("llistat_nickname");
-//            dataSet.add(new Player(nickname));
-//            playerAdapter.notifyDataSetChanged();
-//        }
+        //guarda correctament a la base de dades i les mostra per consola
+        List<Player> players = playerController.listPlayers();
+        Player getPlayer = players.get(0);
+        Log.v("TEST", getPlayer.getNickname()+" "+getPlayer.getPuntuacio()+" "+getPlayer.getPartides());
     }
 
     @Override
