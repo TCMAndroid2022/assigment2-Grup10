@@ -3,7 +3,6 @@ package cat.tecnocampus.mobileapps.practica2.LluisBoschNadal.IvanCarolNavas.Mari
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -26,6 +25,8 @@ public class Game extends AppCompatActivity {
     TextView textView;
     String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
     RequestQueue queue;
+    int partides;
+    int puntuacio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
