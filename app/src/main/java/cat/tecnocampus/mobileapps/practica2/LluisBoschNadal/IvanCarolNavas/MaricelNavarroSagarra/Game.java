@@ -29,7 +29,7 @@ public class Game extends AppCompatActivity {
     TextView text_WordToGuess;
     String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
     RequestQueue queue;
-    String wordToGuess = "Patata";
+    String wordToGuess = "Patataaaaaa";
     int partides;
     int puntuacio;
     char[] wordDisplayedCharArray;
@@ -50,7 +50,7 @@ public class Game extends AppCompatActivity {
     void displayWordOnScreen() {
         String formattedString="";
         for(char character : wordDisplayedCharArray){
-            formattedString += character+ "";
+            formattedString += character + "";
         }
         text_WordToGuess.setText(formattedString);
     }
@@ -62,7 +62,7 @@ public class Game extends AppCompatActivity {
         wordDisplayedCharArray = wordToGuess.toCharArray();
 
         // add underscores
-        for(int i = 1; i < wordDisplayedCharArray.length - 1; i++){
+        for(int i = 0; i < wordDisplayedCharArray.length; i++){
             wordDisplayedCharArray[i] = '_';
         }
 
@@ -109,7 +109,10 @@ public class Game extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                // if there is some letter on the input field
+                if(s.length()!=0){
+                    checkIfLetterIsInWord(s.charAt(0));
+                }
             }
 
             @Override
@@ -118,7 +121,27 @@ public class Game extends AppCompatActivity {
             }
         });
 
+    }
 
+    private void checkIfLetterIsInWord(char letter){
+        // if the letter was found inside the word to be guessed
+        if(wordToGuess.indexOf(letter) >= 0){
+            // if the letter was NOT displayed yet
+            if(wordDisplayedString.indexOf(letter) < 0){
+                // replace the underscores with that letter
+                revealLetterInWord(letter);
+                // update the changes on screen
+                displayWordOnScreen();
+                // check if the game is won
+                if(!wordDisplayedString.contains("_")){
+                    //txtTriesLeft.setText(WINNING_MESSAGE);
+                }
+            }
+        }
+        // otherwise,if the letter was NOT found inside the word to be guessed
+        else{
+
+        }
 
     }
 
