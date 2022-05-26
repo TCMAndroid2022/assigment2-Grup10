@@ -10,44 +10,36 @@
 
     <TextView
         android:id="@+id/tv_nom_app"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
         android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
         android:text="JOC DE PARAULES"
         android:textColor="#EF786F"
-        android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="118dp" />
+        android:textSize="34sp" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="118dp"
-        tools:text="Introdueix el teu Nickname" />
+        android:gravity="center"
+        android:text="Introdueix nickname" />
 
     <EditText
         android:id="@+id/et_nickname"
         android:layout_width="336dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:ems="10"
         android:gravity="center_horizontal"
+        android:hint="nickname"
         android:inputType="textPersonName"
-        android:minHeight="48dp"
-        android:hint="nickname"/>
+        android:minHeight="48dp" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:onClick="startGame"
         android:text="PLAY" />
 </LinearLayout>
