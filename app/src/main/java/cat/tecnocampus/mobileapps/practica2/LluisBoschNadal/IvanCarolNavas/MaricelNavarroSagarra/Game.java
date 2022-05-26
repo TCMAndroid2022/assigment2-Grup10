@@ -3,6 +3,7 @@ package cat.tecnocampus.mobileapps.practica2.LluisBoschNadal.IvanCarolNavas.Mari
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -30,9 +31,16 @@ public class Game extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        textView = (TextView) findViewById(R.id.textView2);
+        textView = (TextView) findViewById(R.id.paraula);
         queue = Volley.newRequestQueue(getApplicationContext());
+    }
+
+    @Override
+    public boolean onSupportNavigateUp(){
+        finish();
+        return true;
     }
 
     public void getWords(View view) {
