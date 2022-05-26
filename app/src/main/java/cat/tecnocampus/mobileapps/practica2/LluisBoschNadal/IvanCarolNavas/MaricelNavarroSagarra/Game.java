@@ -6,6 +6,8 @@ import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -23,10 +25,62 @@ import org.json.JSONObject;
 
 public class Game extends AppCompatActivity {
     TextView textView;
+    TextView text_InputLetter;
+    TextView text_WordToGuess;
     String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
     RequestQueue queue;
+    String wordToGuess = "Patata";
     int partides;
     int puntuacio;
+    char[] wordDisplayedCharArray;
+    String wordDisplayedString;
+
+
+    void revealLetterInWord(char letter){
+        int indexOfLetter = wordToGuess.indexOf(letter);
+        // loop if index is positive or0
+        while(indexOfLetter >= 0){
+            wordDisplayedCharArray[indexOfLetter]=wordToGuess.charAt(indexOfLetter);
+            indexOfLetter=wordToGuess.indexOf(letter,indexOfLetter + 1);
+        }
+        // update the string as well
+        wordDisplayedString=String.valueOf(wordDisplayedCharArray);
+    }
+
+    void displayWordOnScreen() {
+        String formattedString="";
+        for(char character : wordDisplayedCharArray){
+            formattedString += character+ "";
+        }
+        text_WordToGuess.setText(formattedString);
+    }
+
+    void initializeGame(){
+        //1. WORD
+
+        // initialize char array
+        wordDisplayedCharArray = wordToGuess.toCharArray();
+
+        // add underscores
+        for(int i = 1; i < wordDisplayedCharArray.length - 1; i++){
+            wordDisplayedCharArray[i] = '_';
+        }
+
+        // reveal all occurrences of first character
+        revealLetterInWord(wordDisplayedCharArray[0]);
+        // reveal all occurrences of last character
+        revealLetterInWord(wordDisplayedCharArray[wordDisplayedCharArray.length - 1]);
+        // initializeastring from this char array(for search purposes)
+        wordDisplayedString = String.valueOf(wordDisplayedCharArray);
+        // display word
+        displayWordOnScreen();
+        //2.INPUT
+        // clear input field
+        text_InputLetter.setText("");
+    }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +89,37 @@ public class Game extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         textView = (TextView) findViewById(R.id.paraula);
+        text_InputLetter = (TextView) findViewById(R.id.inputLetter);
+        text_WordToGuess = (TextView) findViewById(R.id.wordToGuess);
+
         queue = Volley.newRequestQueue(getApplicationContext());
+
+        jsonWordObject();
+
+        /*while(wordToGuess == null){
+
+        }*/
+        initializeGame();
+        // setup the text changed listener for the edit text
+        text_InputLetter.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+
+
     }
 
     @Override
@@ -47,7 +131,7 @@ public class Game extends AppCompatActivity {
     public void getWords(View view) {
         if(isConnected()) {
             Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
-            jsonJokeObject(view);
+            //jsonWordObject(view);
         }
         else
             Toast.makeText(this,"NOT Connected", Toast.LENGTH_LONG).show();
@@ -59,12 +143,13 @@ public class Game extends AppCompatActivity {
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    public void jsonJokeObject(View view) {
+    public void jsonWordObject() {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    textView.setText(response.getJSONObject("body").getString("Word"));
+                    wordToGuess = response.getJSONObject("body").getString("Word");
+                    textView.setText(wordToGuess);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -77,4 +162,6 @@ public class Game extends AppCompatActivity {
         });
         queue.add(jsonObjectRequest);
     }
+
+
 }
