@@ -36,10 +36,11 @@
         android:minHeight="48dp" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/btn_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:onClick="startGame"
-        android:text="PLAY" />
+        android:text="PLAY"
+        android:enabled="false"/>
 </LinearLayout>
