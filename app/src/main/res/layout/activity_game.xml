@@ -39,16 +39,33 @@
         android:layout_marginStart="100dp"
         android:ems="10"
         android:inputType="textPersonName"
+        android:maxLength="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.441" />
 
+    <EditText
+        android:id="@+id/inputSolution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="100dp"
+        android:ems="10"
+        android:hint="Solution"
+        android:inputType="textPersonName"
+        android:maxLength="1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.682" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="onSolve"
         android:text="Button"
-        android:onClick="onSolve"/>
+        tools:layout_editor_absoluteX="158dp"
+        tools:layout_editor_absoluteY="557dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
