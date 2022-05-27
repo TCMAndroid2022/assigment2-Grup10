@@ -179,4 +179,9 @@ public class Game extends AppCompatActivity {
     }
 
 
+    public void onSolve(View view) {
+        if(text_InputLetter.getText().toString().equals(wordToGuess)){
+            Log.v("WIN", "ERES MUY LISTO");
+        }
+    }
 }
