@@ -24,6 +24,8 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Normalizer;
+
 public class Game extends AppCompatActivity {
     TextView textView;
     EditText text_InputLetter;
@@ -158,11 +160,14 @@ public class Game extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 try {
                     wordToGuess = response.getJSONObject("body").getString("Word");
+                    wordToGuess = Normalizer.normalize(wordToGuess, Normalizer.Form.NFD);
+                    wordToGuess = wordToGuess.replaceAll("[^\\p{ASCII}]", "");
                     textView.setText(wordToGuess);
                     initializeGame();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+
             }
         }, new Response.ErrorListener() {
             @Override
