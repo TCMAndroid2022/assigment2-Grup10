@@ -54,8 +54,6 @@ public class Game extends AppCompatActivity {
 
         jsonWordObject();
 
-        initializeGame();
-
         // setup the text changed listener for the edit text
         text_InputLetter.addTextChangedListener(new TextWatcher() {
             @Override
@@ -161,6 +159,7 @@ public class Game extends AppCompatActivity {
                 try {
                     wordToGuess = response.getJSONObject("body").getString("Word");
                     textView.setText(wordToGuess);
+                    initializeGame();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
