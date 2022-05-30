@@ -39,7 +39,7 @@ public class Game extends AppCompatActivity {
     int puntuacio=0;
     int lettersTried=0;
 
-    String wordToGuess = "Patata";
+    String wordToGuess = "";
     String wordDisplayedString;
     char[] wordDisplayedCharArray;
 
@@ -48,6 +48,8 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        conection();
 
         textView = (TextView) findViewById(R.id.paraula);
         text_InputLetter = (EditText) findViewById(R.id.inputLetter);
@@ -115,19 +117,12 @@ public class Game extends AppCompatActivity {
     }
 
     private void displayWordOnScreen() {
-//        String formattedString="";
-//        for(char character : wordDisplayedCharArray){
-//            formattedString += character;
-//        }
-//        text_WordToGuess.setText(formattedString);
         text_WordToGuess.setText(wordDisplayedString);
     }
 
     private void revealLetterInWord(char letter){
-        int indexOfLetter = wordToGuess.indexOf(letter); // es pa saber donde esta la letra en la palabra correcta
-        //-1 si no existe, de 0 pa arriba existe
+        int indexOfLetter = wordToGuess.indexOf(letter);
 
-        //pa mostrar todas las letras que sean iguales
         while(indexOfLetter >= 0){
             wordDisplayedCharArray[indexOfLetter]=wordToGuess.charAt(indexOfLetter);
             indexOfLetter=wordToGuess.indexOf(letter,indexOfLetter + 1);
@@ -142,7 +137,7 @@ public class Game extends AppCompatActivity {
         return true;
     }
 
-    public void getWords(View view) {
+    public void conection() {
         if(isConnected()) {
             Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
             //jsonWordObject(view);
