@@ -17,4 +17,6 @@ public class PlayerController {
 
     public void insertPlayer (Player player){playerDao.insert(player);}
     public List<Player> listPlayers(){return playerDao.getAll();}
+
+    public List<Player> listPlayersPuntuacioSumada(){return playerDao.getAllPuntuacionsSumades();}
 }
