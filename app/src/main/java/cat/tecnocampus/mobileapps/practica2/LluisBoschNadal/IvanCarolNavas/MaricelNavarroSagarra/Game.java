@@ -36,7 +36,6 @@ import java.text.Normalizer;
 public class Game extends AppCompatActivity {
     TextView textView;
     EditText text_InputLetter;
-    EditText text_InputSolution;
     TextView text_WordToGuess;
 
     //String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
@@ -62,7 +61,6 @@ public class Game extends AppCompatActivity {
         textView = (TextView) findViewById(R.id.paraula);
         text_InputLetter = (EditText) findViewById(R.id.inputLetter);
         text_WordToGuess = (TextView) findViewById(R.id.wordToGuess);
-        text_InputSolution = (EditText) findViewById(R.id.inputSolution);
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
@@ -239,13 +237,5 @@ public class Game extends AppCompatActivity {
             }
         });
         mydialog.show();
-
-        //lettersTried--; //resta un perque conta un sempre que poses algu al edit text
-//        if(text_InputSolution.getText().toString().equals(wordToGuess)){
-//            puntuacio = (wordToGuess.length()-lettersTried)*10;
-//            Log.v("A", "LENGTH "+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
-//            Log.v("PUNTUACIO", String.valueOf(puntuacio));
-//            Log.v("WIN", "ERES MUY LISTO");
-//        }
     }
 }
