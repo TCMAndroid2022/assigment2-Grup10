@@ -115,8 +115,9 @@ public class Game extends AppCompatActivity {
                 revealLetterInWord(letter);
                 displayWordOnScreen();
                 if(!wordDisplayedString.contains("_")){ //win?
-                    Log.v("WIN", "win win");
-                    puntuacio = 0;
+                    //***************
+                    SolucioButton();//no se que tan be esta aixo
+                    //**************
                 }
             }
         }
@@ -210,6 +211,10 @@ public class Game extends AppCompatActivity {
 
 
     public void onSolve(View view) {
+        SolucioButton();
+    }
+
+    private void SolucioButton(){
         AlertDialog.Builder mydialog = new AlertDialog.Builder(Game.this);
         mydialog.setTitle("SOLUCIO FINAL");
 
