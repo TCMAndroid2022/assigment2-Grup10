@@ -3,11 +3,14 @@ package cat.tecnocampus.mobileapps.practica2.LluisBoschNadal.IvanCarolNavas.Mari
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -209,12 +212,40 @@ public class Game extends AppCompatActivity {
 
 
     public void onSolve(View view) {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(Game.this);
+        mydialog.setTitle("SOLUCIO FINAL");
+
+        final EditText solucio = new EditText(Game.this);
+        solucio.setInputType(InputType.TYPE_CLASS_TEXT);
+        solucio.setHint("solucio aqui");
+        mydialog.setView(solucio);
+
+        mydialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                if(solucio.getText().toString().equals(wordToGuess)){
+                    puntuacio = (wordToGuess.length()-lettersTried)*10;
+                    Log.v("A", "LENGTH "+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
+                    Log.v("PUNTUACIO", String.valueOf(puntuacio));
+                    Log.v("WIN", "ERES MUY LISTO");
+                }
+            }
+        });
+
+        mydialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.cancel();
+            }
+        });
+        mydialog.show();
+
         //lettersTried--; //resta un perque conta un sempre que poses algu al edit text
-        if(text_InputSolution.getText().toString().equals(wordToGuess)){
-            puntuacio = (wordToGuess.length()-lettersTried)*10;
-            Log.v("A", "LENGTH "+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
-            Log.v("PUNTUACIO", String.valueOf(puntuacio));
-            Log.v("WIN", "ERES MUY LISTO");
-        }
+//        if(text_InputSolution.getText().toString().equals(wordToGuess)){
+//            puntuacio = (wordToGuess.length()-lettersTried)*10;
+//            Log.v("A", "LENGTH "+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
+//            Log.v("PUNTUACIO", String.valueOf(puntuacio));
+//            Log.v("WIN", "ERES MUY LISTO");
+//        }
     }
 }
