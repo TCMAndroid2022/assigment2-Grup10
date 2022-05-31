@@ -11,8 +11,8 @@ public interface PlayerDao {
     @Query("SELECT * FROM player")
     List<Player> getAll();
 
-    @Query("SELECT p1.nickname, p1.puntuacio+p2.puntuacio, p1.partides FROM player p1 INNER JOIN player p2 ON p1.nickname=p2.nickname")
-    List<Player> getAllPuntuacionsSumades();
+//    @Query("SELECT p1.nickname, p1.puntuacio+p2.puntuacio, p1.partides FROM player p1 INNER JOIN player p2 ON p1.nickname=p2.nickname")
+//    List<Player> getAllPuntuacionsSumades();
 
     @Query("SELECT * FROM player WHERE uid IN (:playerIds)")
     List<Player> loadAllByIds(int[] playerIds);

@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.renderscript.Sampler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -18,9 +19,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,7 +36,8 @@ public class Game extends AppCompatActivity {
     EditText text_InputSolution;
     TextView text_WordToGuess;
 
-    String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
+    //String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
+    String url = "https://random-word-api.herokuapp.com/word";
     RequestQueue queue;
 
     int partides=0;
@@ -58,7 +63,8 @@ public class Game extends AppCompatActivity {
 
         queue = Volley.newRequestQueue(getApplicationContext());
 
-        jsonWordObject();
+        //jsonWordObject();
+        stringWordObject();
 
         // setup the text changed listener for the edit text
         text_InputLetter.addTextChangedListener(new TextWatcher() {
@@ -152,28 +158,53 @@ public class Game extends AppCompatActivity {
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    public void jsonWordObject() {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//    public void jsonWordObject() {
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+//                try {
+//                    wordToGuess = response.getJSONObject("body").getString("Word");
+//                    wordToGuess = Normalizer.normalize(wordToGuess, Normalizer.Form.NFD);
+//                    wordToGuess = wordToGuess.replaceAll("[^\\p{ASCII}]", "");
+//                    textView.setText(wordToGuess);
+//                    initializeGame();
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.v("ERROR", error.getMessage());
+//            }
+//        });
+//        queue.add(jsonObjectRequest);
+//    }
+
+    public void stringWordObject(){
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,
+                null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONArray response) {
                 try {
-                    wordToGuess = response.getJSONObject("body").getString("Word");
+                    wordToGuess = response.getString(0);
                     wordToGuess = Normalizer.normalize(wordToGuess, Normalizer.Form.NFD);
                     wordToGuess = wordToGuess.replaceAll("[^\\p{ASCII}]", "");
                     textView.setText(wordToGuess);
                     initializeGame();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                }catch(Exception ex){
+                    Log.d("SwA", "Error parsing json array");
                 }
-
             }
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.v("ERROR", error.getMessage());
             }
         });
-        queue.add(jsonObjectRequest);
+        queue.add(jsonArrayRequest);
     }
 
 
