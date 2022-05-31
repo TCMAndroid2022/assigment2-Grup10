@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
@@ -30,31 +31,39 @@ public class Ranking extends AppCompatActivity {
         playerController = new PlayerController(getApplication());
         recyclerView = (RecyclerView) findViewById(R.id.rv_items);
 
-        if(savedInstanceState == null){
-            dataSet=new ArrayList<>();
-            playerAdapter = new PlayerAdapter(dataSet);
-            recyclerView.setAdapter(playerAdapter);
-        }
+        dataSet=new ArrayList<>();
+        playerAdapter = new PlayerAdapter(dataSet);
+        recyclerView.setAdapter(playerAdapter);
 
         layoutManager = new LinearLayoutManager((this));
         recyclerView.setLayoutManager(layoutManager);
 
-        //guarda correctament a la base de dades i les mostra per consola
+        //mostra correctament a la base de dades i les mostra per consola
         List<Player> players = playerController.listPlayers();
-        Log.v("TEST", String.valueOf(players.size()));
+
         for(int i=0; i< players.size(); i++) {
             Player getPlayer = players.get(i);
-            dataSet.add(new Player(getPlayer.getNickname()));
-            playerAdapter.notifyDataSetChanged();
-            Log.v("TEST2", getPlayer.getNickname() + " " + getPlayer.getPuntuacio() + " " + getPlayer.getPartides());
+            dataSet.add(new Player(getPlayer.nickname));
         }
-
-
+        playerAdapter.notifyDataSetChanged();
     }
 
     @Override
     public boolean onSupportNavigateUp(){
         finish();
         return true;
+    }
+
+
+    //preguntar com vol que surti quan estigui en orientatio landscape
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            layoutManager = new LinearLayoutManager(this);
+        }else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
+            layoutManager = new LinearLayoutManager(this);
+        }
+        recyclerView.setLayoutManager(layoutManager);
     }
 }
