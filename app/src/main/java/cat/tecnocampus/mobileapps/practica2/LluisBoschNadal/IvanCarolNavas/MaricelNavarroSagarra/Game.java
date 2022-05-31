@@ -1,9 +1,12 @@
 package cat.tecnocampus.mobileapps.practica2.LluisBoschNadal.IvanCarolNavas.MaricelNavarroSagarra;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -11,8 +14,10 @@ import android.os.Bundle;
 import android.renderscript.Sampler;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -26,14 +31,16 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.Normalizer;
+import java.util.zip.Inflater;
 
-public class Game extends AppCompatActivity {
+public class Game extends AppCompatActivity{
     TextView textView;
     EditText text_InputLetter;
     TextView text_WordToGuess;
@@ -45,6 +52,7 @@ public class Game extends AppCompatActivity {
     int partides=0;
     int puntuacio=0;
     int lettersTried=0;
+    boolean win;
 
     String wordToGuess = "";
     String wordDisplayedString;
@@ -87,10 +95,10 @@ public class Game extends AppCompatActivity {
 
             }
         });
-
     }
 
     private void initializeGame(){
+        win = false;
         //1. WORD
         // initialize char array from the word add underscores
         wordDisplayedCharArray = wordToGuess.toCharArray();
@@ -217,20 +225,23 @@ public class Game extends AppCompatActivity {
     private void SolucioButton(){
         AlertDialog.Builder mydialog = new AlertDialog.Builder(Game.this);
         mydialog.setTitle("SOLUCIO FINAL");
-
         final EditText solucio = new EditText(Game.this);
         solucio.setInputType(InputType.TYPE_CLASS_TEXT);
         solucio.setHint("solucio aqui");
         mydialog.setView(solucio);
 
+
         mydialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(solucio.getText().toString().equals(wordToGuess)){
+                    win = true;
                     puntuacio = (wordToGuess.length()-lettersTried)*10;
-                    Log.v("A", "LENGTH "+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
+                    Log.v("A", "LENGTH WORD"+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
                     Log.v("PUNTUACIO", String.valueOf(puntuacio));
                     Log.v("WIN", "ERES MUY LISTO");
+                    partides++;
+                    winDialog();
                 }
             }
         });
@@ -242,5 +253,14 @@ public class Game extends AppCompatActivity {
             }
         });
         mydialog.show();
+    }
+
+    private void winDialog(){
+        if(win) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
+            builder.setTitle("WIN");
+            builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried)+"/nPUNTUACIO" + String.valueOf(puntuacio));
+            builder.show();
+        }
     }
 }
