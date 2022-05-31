@@ -50,10 +50,8 @@ public class Game extends AppCompatActivity{
     String url = "https://random-word-api.herokuapp.com/word";
     RequestQueue queue;
 
-    int partidesLost=0;
     int puntuacio=0;
     int lettersTried=0;
-    int partidesWin=0;
     boolean win;
 
     String wordToGuess = "";
@@ -219,7 +217,6 @@ public class Game extends AppCompatActivity{
                     Log.v("A", "LENGTH WORD "+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
                     Log.v("PUNTUACIO ", String.valueOf(puntuacio));
                     Log.v("WIN", "ERES MUY LISTO");
-                    partidesWin++;
                     winDialog();
                 }
                 else{
