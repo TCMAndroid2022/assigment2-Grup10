@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -49,14 +50,17 @@ public class Game extends AppCompatActivity{
     String url = "https://random-word-api.herokuapp.com/word";
     RequestQueue queue;
 
-    int partides=0;
+    int partidesLost=0;
     int puntuacio=0;
     int lettersTried=0;
+    int partidesWin=0;
     boolean win;
 
     String wordToGuess = "";
     String wordDisplayedString;
     char[] wordDisplayedCharArray;
+
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +99,7 @@ public class Game extends AppCompatActivity{
 
             }
         });
+        intent = new Intent(this, MainActivity.class);
     }
 
     private void initializeGame(){
@@ -122,10 +127,8 @@ public class Game extends AppCompatActivity{
             if(wordDisplayedString.indexOf(letter) < 0){
                 revealLetterInWord(letter);
                 displayWordOnScreen();
-                if(!wordDisplayedString.contains("_")){ //win?
-                    //***************
-                    SolucioButton();//no se que tan be esta aixo
-                    //**************
+                if(!wordDisplayedString.contains("_")){
+                    loseDialog();
                 }
             }
         }
@@ -167,30 +170,6 @@ public class Game extends AppCompatActivity{
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
-
-//    public void jsonWordObject() {
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                try {
-//                    wordToGuess = response.getJSONObject("body").getString("Word");
-//                    wordToGuess = Normalizer.normalize(wordToGuess, Normalizer.Form.NFD);
-//                    wordToGuess = wordToGuess.replaceAll("[^\\p{ASCII}]", "");
-//                    textView.setText(wordToGuess);
-//                    initializeGame();
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Log.v("ERROR", error.getMessage());
-//            }
-//        });
-//        queue.add(jsonObjectRequest);
-//    }
 
     public void stringWordObject(){
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,
@@ -237,11 +216,15 @@ public class Game extends AppCompatActivity{
                 if(solucio.getText().toString().equals(wordToGuess)){
                     win = true;
                     puntuacio = (wordToGuess.length()-lettersTried)*10;
-                    Log.v("A", "LENGTH WORD"+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
-                    Log.v("PUNTUACIO", String.valueOf(puntuacio));
+                    Log.v("A", "LENGTH WORD "+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
+                    Log.v("PUNTUACIO ", String.valueOf(puntuacio));
                     Log.v("WIN", "ERES MUY LISTO");
-                    partides++;
+                    partidesWin++;
                     winDialog();
+                }
+                else{
+                    puntuacio = 0;
+                    loseDialog();
                 }
             }
         });
@@ -259,8 +242,27 @@ public class Game extends AppCompatActivity{
         if(win) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
             builder.setTitle("WIN");
-            builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried)+"/nPUNTUACIO" + String.valueOf(puntuacio));
+            builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried)+"\nPUNTUACIO " + String.valueOf(puntuacio));
+            builder.setNeutralButton("NEW GAME", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                   startActivity(intent);
+                }
+            });
             builder.show();
         }
+    }
+
+    private void loseDialog (){
+        AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
+        builder.setTitle("LOSE");
+        builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried)+"\nPUNTUACIO " + String.valueOf(puntuacio));
+        builder.setNeutralButton("NEW GAME", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                startActivity(intent);
+            }
+        });
+        builder.show();
     }
 }
