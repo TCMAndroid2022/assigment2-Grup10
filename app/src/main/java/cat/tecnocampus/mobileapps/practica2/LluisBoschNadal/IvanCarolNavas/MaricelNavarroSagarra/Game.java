@@ -41,16 +41,17 @@ import org.json.JSONObject;
 import java.text.Normalizer;
 import java.util.zip.Inflater;
 
-public class Game extends AppCompatActivity{
+public class Game extends AppCompatActivity {
     EditText text_InputLetter;
     TextView text_WordToGuess;
+    EditText solucio;
 
     //String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
     String url = "https://random-word-api.herokuapp.com/word";
     RequestQueue queue;
 
-    int puntuacio=0;
-    int lettersTried=0;
+    int puntuacio = 0;
+    int lettersTried = 0;
     boolean win;
 
     String wordToGuess = "";
@@ -85,7 +86,7 @@ public class Game extends AppCompatActivity{
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 // if there is some letter on the input field
-                if(s.length()!=0){
+                if (s.length() != 0) {
                     checkIfLetterIsInWord(s.charAt(0));
                 }
             }
@@ -98,12 +99,12 @@ public class Game extends AppCompatActivity{
         intent = new Intent(this, MainActivity.class);
     }
 
-    private void initializeGame(){
+    private void initializeGame() {
         win = false;
         //1. WORD
         // initialize char array from the word add underscores
         wordDisplayedCharArray = wordToGuess.toCharArray();
-        for(int i = 0; i < wordDisplayedCharArray.length; i++){
+        for (int i = 0; i < wordDisplayedCharArray.length; i++) {
             wordDisplayedCharArray[i] = '_';
         }
         // initialize a string from this char array(for search purposes)
@@ -115,15 +116,15 @@ public class Game extends AppCompatActivity{
         text_InputLetter.setText("");
     }
 
-    private void checkIfLetterIsInWord(char letter){
+    private void checkIfLetterIsInWord(char letter) {
         lettersTried++;
         // if the letter was found inside the word to be guessed
-        if(wordToGuess.indexOf(letter) >= 0){
+        if (wordToGuess.indexOf(letter) >= 0) {
             // if the letter was NOT displayed yet
-            if(wordDisplayedString.indexOf(letter) < 0){
+            if (wordDisplayedString.indexOf(letter) < 0) {
                 revealLetterInWord(letter);
                 displayWordOnScreen();
-                if(!wordDisplayedString.contains("_")){
+                if (!wordDisplayedString.contains("_")) {
                     loseDialog();
                 }
             }
@@ -135,39 +136,39 @@ public class Game extends AppCompatActivity{
         text_WordToGuess.setText(wordDisplayedString);
     }
 
-    private void revealLetterInWord(char letter){
+    private void revealLetterInWord(char letter) {
         int indexOfLetter = wordToGuess.indexOf(letter);
 
-        while(indexOfLetter >= 0){
-            wordDisplayedCharArray[indexOfLetter]=wordToGuess.charAt(indexOfLetter);
-            indexOfLetter=wordToGuess.indexOf(letter,indexOfLetter + 1);
+        while (indexOfLetter >= 0) {
+            wordDisplayedCharArray[indexOfLetter] = wordToGuess.charAt(indexOfLetter);
+            indexOfLetter = wordToGuess.indexOf(letter, indexOfLetter + 1);
         }
 
-        wordDisplayedString=String.valueOf(wordDisplayedCharArray);
+        wordDisplayedString = String.valueOf(wordDisplayedCharArray);
     }
 
     @Override
-    public boolean onSupportNavigateUp(){
+    public boolean onSupportNavigateUp() {
         finish();
         return true;
     }
 
     public void conection() {
-        if(isConnected()) {
+        if (isConnected()) {
             Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
             //jsonWordObject(view);
-        }
-        else
-            Toast.makeText(this,"NOT Connected", Toast.LENGTH_LONG).show();
+        } else
+            Toast.makeText(this, "NOT Connected", Toast.LENGTH_LONG).show();
 
     }
-    public boolean isConnected(){
+
+    public boolean isConnected() {
         ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
         return networkInfo != null && networkInfo.isConnected();
     }
 
-    public void stringWordObject(){
+    public void stringWordObject() {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,
                 null, new Response.Listener<JSONArray>() {
             @Override
@@ -178,7 +179,7 @@ public class Game extends AppCompatActivity{
                     wordToGuess = wordToGuess.replaceAll("[^\\p{ASCII}]", "");
                     Log.v("PARAULA", wordToGuess);
                     initializeGame();
-                }catch(Exception ex){
+                } catch (Exception ex) {
                     Log.d("SwA", "Error parsing json array");
                 }
             }
@@ -197,61 +198,55 @@ public class Game extends AppCompatActivity{
         SolucioButton();
     }
 
-    private void SolucioButton(){
-        AlertDialog.Builder mydialog = new AlertDialog.Builder(Game.this);
-        mydialog.setTitle("SOLUCIO FINAL");
-        final EditText solucio = new EditText(Game.this);
-        solucio.setInputType(InputType.TYPE_CLASS_TEXT);
-        solucio.setHint("solucio aqui");
-        mydialog.setView(solucio);
+    private void SolucioButton() {
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
+        LayoutInflater inflater = Game.this.getLayoutInflater();
+        View view = getLayoutInflater().inflate(R.layout.solucio_final, null, false);
+        solucio = view.findViewById(R.id.et_solucio);
 
-        mydialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                if(solucio.getText().toString().equals(wordToGuess)){
-                    win = true;
-                    puntuacio = (wordToGuess.length()-lettersTried)*10;
-                    Log.v("A", "LENGTH WORD "+String.valueOf(wordToGuess.length())+"  LETTER TRIED "+String.valueOf(lettersTried));
-                    Log.v("PUNTUACIO ", String.valueOf(puntuacio));
-                    Log.v("WIN", "ERES MUY LISTO");
-                    winDialog();
-                }
-                else{
-                    puntuacio = 0;
-                    loseDialog();
-                }
-            }
-        });
-
-        mydialog.setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.cancel();
-            }
-        });
-        mydialog.show();
+        builder.setView(view)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        if (solucio.getText().toString().equals(wordToGuess)) {
+                            win = true;
+                            puntuacio = (wordToGuess.length() - lettersTried) * 10;
+                            winDialog();
+                        } else {
+                            puntuacio = 0;
+                            loseDialog();
+                        }
+                    }
+                })
+                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                })
+                .show();
     }
 
-    private void winDialog(){
-        if(win) {
+    private void winDialog() {
+        if (win) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
             builder.setTitle("WIN");
-            builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried)+"\nPUNTUACIO " + String.valueOf(puntuacio));
+            builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried) + "\nPUNTUACIO " + String.valueOf(puntuacio));
             builder.setNeutralButton("NEW GAME", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
-                   startActivity(intent);
+                    startActivity(intent);
                 }
             });
             builder.show();
         }
     }
 
-    private void loseDialog (){
+    private void loseDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
         builder.setTitle("LOSE");
-        builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried)+"\nPUNTUACIO " + String.valueOf(puntuacio));
+        builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried) + "\nPUNTUACIO " + String.valueOf(puntuacio));
         builder.setNeutralButton("NEW GAME", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
