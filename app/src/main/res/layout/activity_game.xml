@@ -13,28 +13,43 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
         android:gravity="center"
         android:hint="Word to Guess"
-        android:text="WordToGuess" />
+        android:text="WordToGuess"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Introdueix lletra" />
 
     <EditText
         android:id="@+id/inputLetter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
         android:ems="10"
         android:gravity="left"
         android:inputType="textPersonName"
         android:maxLength="1"
-        android:paddingStart="10dp" />
+        android:paddingStart="10dp"
+        tools:ignore="TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/btn_solution"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_margin="20dp"
         android:gravity="center"
         android:onClick="onSolve"
-        android:text="Solucio final" />
+        android:text="Solucio final"
+        android:textSize="18sp" />
 
 </LinearLayout>
