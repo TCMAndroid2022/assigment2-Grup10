@@ -1,25 +1,20 @@
 package cat.tecnocampus.mobileapps.practica2.LluisBoschNadal.IvanCarolNavas.MaricelNavarroSagarra;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.renderscript.Sampler;
 import android.text.Editable;
-import android.text.InputType;
-import android.text.Layout;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,22 +24,15 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.Normalizer;
-import java.util.zip.Inflater;
 
 public class Game extends AppCompatActivity {
     EditText text_InputLetter;
     TextView text_WordToGuess;
-    EditText solucio;
 
     //String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
     String url = "https://random-word-api.herokuapp.com/word";
@@ -101,26 +89,22 @@ public class Game extends AppCompatActivity {
 
     private void initializeGame() {
         win = false;
-        //1. WORD
-        // initialize char array from the word add underscores
+
         wordDisplayedCharArray = wordToGuess.toCharArray();
         for (int i = 0; i < wordDisplayedCharArray.length; i++) {
             wordDisplayedCharArray[i] = '_';
         }
-        // initialize a string from this char array(for search purposes)
+
         wordDisplayedString = String.valueOf(wordDisplayedCharArray);
         displayWordOnScreen();
 
-        //2.INPUT
-        // clear input field
         text_InputLetter.setText("");
     }
 
     private void checkIfLetterIsInWord(char letter) {
         lettersTried++;
-        // if the letter was found inside the word to be guessed
+
         if (wordToGuess.indexOf(letter) >= 0) {
-            // if the letter was NOT displayed yet
             if (wordDisplayedString.indexOf(letter) < 0) {
                 revealLetterInWord(letter);
                 displayWordOnScreen();
@@ -129,7 +113,6 @@ public class Game extends AppCompatActivity {
                 }
             }
         }
-
     }
 
     private void displayWordOnScreen() {
@@ -202,8 +185,8 @@ public class Game extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
         LayoutInflater inflater = Game.this.getLayoutInflater();
-        View view = getLayoutInflater().inflate(R.layout.solucio_final, null, false);
-        solucio = view.findViewById(R.id.et_solucio);
+        View view = getLayoutInflater().inflate(R.layout.solucio_dialog, null, false);
+        EditText solucio = view.findViewById(R.id.et_solucio);
 
         builder.setView(view)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -245,14 +228,24 @@ public class Game extends AppCompatActivity {
 
     private void loseDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
-        builder.setTitle("LOSE");
-        builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried) + "\nPUNTUACIO " + String.valueOf(puntuacio));
-        builder.setNeutralButton("NEW GAME", new DialogInterface.OnClickListener() {
+        LayoutInflater inflater = Game.this.getLayoutInflater();
+        View view = getLayoutInflater().inflate(R.layout.lose_dialog, null, false);
+
+        Button new_game = view.findViewById(R.id.lose_new_game);
+        TextView lose_length_word = view.findViewById(R.id.lose_lenght);
+        TextView lose_letters_tries = view.findViewById(R.id.lose_letters);
+        TextView lose_puntuacio = view.findViewById(R.id.lose_puntuacio);
+
+        lose_length_word.setText(new StringBuilder().append(lose_length_word.getText()).append(String.valueOf(wordToGuess.length())).toString());
+        lose_letters_tries.setText(new StringBuilder().append(lose_letters_tries.getText()).append(String.valueOf(lettersTried)).toString());
+        lose_puntuacio.setText(new StringBuilder().append(lose_puntuacio.getText()).append(String.valueOf(puntuacio)).toString());
+
+        new_game.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(View view) {
                 startActivity(intent);
             }
         });
-        builder.show();
+        builder.setView(view).show();
     }
 }
