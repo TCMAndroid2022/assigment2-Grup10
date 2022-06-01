@@ -3,49 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:paddingStart="10dp"
     tools:context=".Game">
 
     <TextView
         android:id="@+id/wordToGuess"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1"
         android:gravity="center"
         android:hint="Word to Guess"
         android:text="WordToGuess" />
 
-    <TextView
-        android:id="@+id/paraula"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="TextView" />
-
     <EditText
         android:id="@+id/inputLetter"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="1"
         android:ems="10"
         android:gravity="left"
         android:inputType="textPersonName"
-        android:maxLength="1" />
+        android:maxLength="1"
+        android:paddingStart="10dp" />
 
     <Button
         android:id="@+id/btn_solution"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="100dp"
-        android:layout_weight="1"
+        android:gravity="center"
         android:onClick="onSolve"
-        android:padding="50dp"
         android:text="Solucio final" />
 
 </LinearLayout>

@@ -42,7 +42,6 @@ import java.text.Normalizer;
 import java.util.zip.Inflater;
 
 public class Game extends AppCompatActivity{
-    TextView textView;
     EditText text_InputLetter;
     TextView text_WordToGuess;
 
@@ -68,7 +67,6 @@ public class Game extends AppCompatActivity{
 
         conection();
 
-        textView = (TextView) findViewById(R.id.paraula);
         text_InputLetter = (EditText) findViewById(R.id.inputLetter);
         text_WordToGuess = (TextView) findViewById(R.id.wordToGuess);
 
@@ -178,7 +176,7 @@ public class Game extends AppCompatActivity{
                     wordToGuess = response.getString(0);
                     wordToGuess = Normalizer.normalize(wordToGuess, Normalizer.Form.NFD);
                     wordToGuess = wordToGuess.replaceAll("[^\\p{ASCII}]", "");
-                    textView.setText(wordToGuess);
+                    Log.v("PARAULA", wordToGuess);
                     initializeGame();
                 }catch(Exception ex){
                     Log.d("SwA", "Error parsing json array");
