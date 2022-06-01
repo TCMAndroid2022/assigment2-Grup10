@@ -16,8 +16,10 @@
             android:id="@+id/titulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:gravity="center"
-            android:text="RANKING" />
+            android:text="RANKING"
+            android:textSize="24sp" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_items"
