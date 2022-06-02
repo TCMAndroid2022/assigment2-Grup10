@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -171,6 +172,8 @@ public class Game extends AppCompatActivity {
         Button sol_ok = view.findViewById(R.id.sol_ok);
         Button sol_cancel = view.findViewById(R.id.sol_cancel);
         EditText solucio = view.findViewById(R.id.et_solucio);
+        ImageView image = view.findViewById(R.id.imageSol);
+        image.setImageResource(R.drawable.thinking_icon);
 
         AlertDialog ad = builder.setView(view).show();
 
