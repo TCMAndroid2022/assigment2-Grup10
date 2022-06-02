@@ -19,8 +19,6 @@ import com.google.android.material.internal.TextWatcherAdapter;
 
 public class MainActivity extends AppCompatActivity {
     EditText et_nickname;
-    PlayerController playerController;
-    Player player;
     Button btn_play;
     String nicknameInput;
 
@@ -34,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
 
         et_nickname.addTextChangedListener(loginPlayerTextWatcher);
 
-        playerController = new PlayerController(getApplication());
     }
 
     private TextWatcher loginPlayerTextWatcher = new TextWatcher() {
@@ -57,10 +54,8 @@ public class MainActivity extends AppCompatActivity {
     };
 
     public void startGame(View view) {
-        player = new Player(nicknameInput);
-        playerController.insertPlayer(player);
-
         Intent intent = new Intent(this, Game.class);
+        intent.putExtra("nickname_player",nicknameInput);
         startActivity(intent);
     }
 

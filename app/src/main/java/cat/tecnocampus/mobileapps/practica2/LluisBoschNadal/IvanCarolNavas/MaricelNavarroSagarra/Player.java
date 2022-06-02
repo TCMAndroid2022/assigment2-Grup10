@@ -29,7 +29,7 @@ public class Player{
     public Player(String nickname) {
         this.nickname = nickname;
         this.partides = 0;
-        this.puntuacio = 1;
+        this.puntuacio = 0;
         this.uid = UUID.randomUUID().toString();
     }
 

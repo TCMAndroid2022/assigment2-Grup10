@@ -49,11 +49,24 @@ public class Game extends AppCompatActivity {
 
     Intent intent;
 
+    String nickname;
+    PlayerController playerController;
+    Player player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        playerController = new PlayerController(getApplication());
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            nickname = extras.getString("nickname_player");
+        }
+
+        player = new Player(nickname);
 
         text_InputLetter = (EditText) findViewById(R.id.inputLetter);
         text_WordToGuess = (TextView) findViewById(R.id.wordToGuess);
@@ -216,6 +229,7 @@ public class Game extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     startActivity(intent);
+                    inssertPlayer();
                 }
             });
             builder.setView(view).show();
@@ -239,8 +253,14 @@ public class Game extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(intent);
+                inssertPlayer();
             }
         });
         builder.setView(view).show();
+    }
+
+    private void inssertPlayer(){
+        player.setPuntuacio(puntuacio);
+        playerController.insertPlayer(player);
     }
 }

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class Ranking extends AppCompatActivity {
@@ -47,17 +48,29 @@ public class Ranking extends AppCompatActivity {
 
         for(int i=0; i< players.size(); i++) {
             Player getPlayer = players.get(i);
-            if(!dataSet_aux.contains(getPlayer.getNickname())){
-                dataSet_aux.add(new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), getPlayer.getPartides()));
+            PlayerGlobal playerGlobal = new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), getPlayer.getPartides());
+            if(!dataSet_aux.contains(playerGlobal)){
+                dataSet_aux.add(playerGlobal);
             }else{
                 PlayerGlobal p  = dataSet_aux.get(i);
-                p.setPuntuacio(p.getPuntuacio()+getPlayer.getPuntuacio());
-                p.setPartides(p.getPartides()+getPlayer.getPartides());
+                p.setPuntuacio(p.getPuntuacio()+playerGlobal.getPuntuacio());
+                p.setPartides(p.getPartides()+playerGlobal.getPartides());
                 dataSet_aux.set(i, p);
             }
         }
+
         dataSet.addAll(dataSet_aux);
         playerAdapter.notifyDataSetChanged();
+        printData();
+    }
+
+    private void printData(){
+        for(int i = 0; i < dataSet_aux.size(); i++) {
+            Log.v("AUX", dataSet_aux.get(i).getNickname());
+        }
+        for(int i = 0; i < dataSet.size(); i++) {
+            Log.v("SET", dataSet.get(i).getNickname());
+        }
     }
 
     @Override
