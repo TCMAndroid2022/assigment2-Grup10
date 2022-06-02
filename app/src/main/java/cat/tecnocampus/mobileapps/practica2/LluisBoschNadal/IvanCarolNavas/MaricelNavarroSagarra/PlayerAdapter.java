@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder> {
-    ArrayList<Player> data;
+    ArrayList<PlayerGlobal> data;
 
-    public PlayerAdapter(ArrayList<Player> data) {
+    public PlayerAdapter(ArrayList<PlayerGlobal> data) {
         this.data = data;
     }
 
@@ -27,7 +27,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull PlayerAdapter.ViewHolder holder, int position) {
-        Player currentPlayer = data.get(position);
+        PlayerGlobal currentPlayer = data.get(position);
         holder.tv_llistat_nick.setText(String.valueOf(currentPlayer.getNickname()));
         holder.tv_llistat_punt.setText(String.valueOf(currentPlayer.getPuntuacio()));
     }

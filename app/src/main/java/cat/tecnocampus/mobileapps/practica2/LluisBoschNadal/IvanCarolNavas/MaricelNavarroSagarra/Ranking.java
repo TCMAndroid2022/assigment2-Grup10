@@ -19,7 +19,8 @@ public class Ranking extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     PlayerAdapter playerAdapter;
-    ArrayList<Player> dataSet;
+    ArrayList<PlayerGlobal> dataSet;
+    ArrayList<PlayerGlobal> dataSet_aux;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +32,12 @@ public class Ranking extends AppCompatActivity {
         playerController = new PlayerController(getApplication());
         recyclerView = (RecyclerView) findViewById(R.id.rv_items);
 
-        dataSet=new ArrayList<>();
-        playerAdapter = new PlayerAdapter(dataSet);
-        recyclerView.setAdapter(playerAdapter);
+        if(savedInstanceState == null) {
+            dataSet = new ArrayList<>();
+            dataSet_aux = new ArrayList<>();
+            playerAdapter = new PlayerAdapter(dataSet);
+            recyclerView.setAdapter(playerAdapter);
+        }
 
         layoutManager = new LinearLayoutManager((this));
         recyclerView.setLayoutManager(layoutManager);
@@ -43,8 +47,16 @@ public class Ranking extends AppCompatActivity {
 
         for(int i=0; i< players.size(); i++) {
             Player getPlayer = players.get(i);
-            dataSet.add(new Player(getPlayer.nickname));
+            if(!dataSet_aux.contains(getPlayer.getNickname())){
+                dataSet_aux.add(new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), getPlayer.getPartides()));
+            }else{
+                PlayerGlobal p  = dataSet_aux.get(i);
+                p.setPuntuacio(p.getPuntuacio()+getPlayer.getPuntuacio());
+                p.setPartides(p.getPartides()+getPlayer.getPartides());
+                dataSet_aux.set(i, p);
+            }
         }
+        dataSet.addAll(dataSet_aux);
         playerAdapter.notifyDataSetChanged();
     }
 
