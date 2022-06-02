@@ -71,8 +71,15 @@ public class RankingInfo extends AppCompatActivity {
             if(getPlayer.getNickname().equals(nickname)){
                 Log.v("EUQALS", String.valueOf(i));
                 dataSet.add(playerGlobal);
-                playerInfoAdapter.notifyDataSetChanged();
+                playerInfoAdapter.notifyDataSetChanged();// no hace el notify bien porque el data set tiene dos objetos
             }
+        }
+        printData();
+    }
+
+    private void printData(){
+        for(int i = 0; i < dataSet.size(); i++) {
+            Log.v("SET", dataSet.get(i).getNickname());
         }
     }
 }
