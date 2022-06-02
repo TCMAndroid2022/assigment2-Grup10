@@ -16,7 +16,8 @@
         android:theme="@style/Theme.Assigment2Grup10">
         <activity
             android:name=".Ranking"
-            android:exported="false" />
+            android:exported="false"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".Game"
             android:exported="false" />
