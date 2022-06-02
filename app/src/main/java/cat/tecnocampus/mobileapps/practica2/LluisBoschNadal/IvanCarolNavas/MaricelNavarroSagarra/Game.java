@@ -54,8 +54,6 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        conection();
-
         text_InputLetter = (EditText) findViewById(R.id.inputLetter);
         text_WordToGuess = (TextView) findViewById(R.id.wordToGuess);
 
@@ -134,21 +132,6 @@ public class Game extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         finish();
         return true;
-    }
-
-    public void conection() {
-        if (isConnected()) {
-            Toast.makeText(this, "Connected", Toast.LENGTH_LONG).show();
-            //jsonWordObject(view);
-        } else
-            Toast.makeText(this, "NOT Connected", Toast.LENGTH_LONG).show();
-
-    }
-
-    public boolean isConnected() {
-        ConnectivityManager connMgr = (ConnectivityManager) getSystemService(Activity.CONNECTIVITY_SERVICE);
-        NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
-        return networkInfo != null && networkInfo.isConnected();
     }
 
     public void stringWordObject() {
