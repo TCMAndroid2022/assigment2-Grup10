@@ -70,8 +70,8 @@ public class RankingInfo extends AppCompatActivity {
             PlayerGlobal playerGlobal = new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), getPlayer.getPartides());
             if(getPlayer.getNickname().equals(nickname)){
                 Log.v("EUQALS", String.valueOf(i));
-                dataSet.add(playerGlobal);
-                playerInfoAdapter.notifyDataSetChanged();// no hace el notify bien porque el data set tiene dos objetos
+                dataSet.add(playerGlobal);//lo fascinente es que el dataSet tiene los valores correctos
+                playerInfoAdapter.notifyDataSetChanged();// no hace el notify bien y no se porque ;(
             }
         }
         printData();
@@ -79,7 +79,7 @@ public class RankingInfo extends AppCompatActivity {
 
     private void printData(){
         for(int i = 0; i < dataSet.size(); i++) {
-            Log.v("SET", dataSet.get(i).getNickname());
+            Log.v("SET", dataSet.get(i).getNickname()+"  "+ dataSet.get(i).getPuntuacio());
         }
     }
 }
