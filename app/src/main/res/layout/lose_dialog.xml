@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <ImageView
@@ -11,15 +11,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginTop="10dp"
         app:srcCompat="@drawable/lose_icon" />
 
     <TextView
         android:id="@+id/lose_lenght"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center"
         android:paddingStart="10dp"
-        android:text="LENGTH WORD "
+        android:text="LENGTH WORD: "
         android:textSize="16sp" />
 
     <TextView
@@ -28,16 +30,17 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingStart="10dp"
-        android:text="LETTERS TRIED "
+        android:text="LETTERS TRIED: "
         android:textSize="16sp" />
 
     <TextView
         android:id="@+id/lose_puntuacio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:gravity="center"
         android:paddingStart="10dp"
-        android:text="PUNTUACIO "
+        android:text="PUNTUACIO: "
         android:textSize="16sp" />
 
     <Button
@@ -45,6 +48,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:layout_marginBottom="10dp"
         android:text="NEW GAME"
         android:textSize="16sp" />
 </LinearLayout>

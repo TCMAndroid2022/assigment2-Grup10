@@ -8,14 +8,17 @@
         android:id="@+id/tv_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SOLUCIO FINAL" />
+        android:gravity="center"
+        android:text="SOLUCIO FINAL"
+        android:textSize="24sp" />
 
     <EditText
         android:id="@+id/et_solucio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="text"
-        android:hint="Escriu aqui"/>
+        android:gravity="center"
+        android:hint="Escriu aqui"
+        android:inputType="text" />
 
 </LinearLayout>

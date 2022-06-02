@@ -214,24 +214,32 @@ public class Game extends AppCompatActivity {
     private void winDialog() {
         if (win) {
             AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
-            builder.setTitle("WIN");
-            builder.setMessage("LENGTH WORD " + String.valueOf(wordToGuess.length()) + "  LETTER TRIED " + String.valueOf(lettersTried) + "\nPUNTUACIO " + String.valueOf(puntuacio));
-            builder.setNeutralButton("NEW GAME", new DialogInterface.OnClickListener() {
+            View view = getLayoutInflater().inflate(R.layout.win_dialog, null, false);
+
+            Button win_new_game = view.findViewById(R.id.win_new_game);
+            TextView win_length_word = view.findViewById(R.id.win_lenght);
+            TextView win_letters_tries = view.findViewById(R.id.win_letters);
+            TextView win_puntuacio = view.findViewById(R.id.win_puntuacio);
+
+            win_length_word.setText(new StringBuilder().append(win_length_word.getText()).append(String.valueOf(wordToGuess.length())).toString());
+            win_letters_tries.setText(new StringBuilder().append(win_letters_tries.getText()).append(String.valueOf(lettersTried)).toString());
+            win_puntuacio.setText(new StringBuilder().append(win_puntuacio.getText()).append(String.valueOf(puntuacio)).toString());
+
+            win_new_game.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+                public void onClick(View view) {
                     startActivity(intent);
                 }
             });
-            builder.show();
+            builder.setView(view).show();
         }
     }
 
     private void loseDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
-        LayoutInflater inflater = Game.this.getLayoutInflater();
         View view = getLayoutInflater().inflate(R.layout.lose_dialog, null, false);
 
-        Button new_game = view.findViewById(R.id.lose_new_game);
+        Button lose_new_game = view.findViewById(R.id.lose_new_game);
         TextView lose_length_word = view.findViewById(R.id.lose_lenght);
         TextView lose_letters_tries = view.findViewById(R.id.lose_letters);
         TextView lose_puntuacio = view.findViewById(R.id.lose_puntuacio);
@@ -240,7 +248,7 @@ public class Game extends AppCompatActivity {
         lose_letters_tries.setText(new StringBuilder().append(lose_letters_tries.getText()).append(String.valueOf(lettersTried)).toString());
         lose_puntuacio.setText(new StringBuilder().append(lose_puntuacio.getText()).append(String.valueOf(puntuacio)).toString());
 
-        new_game.setOnClickListener(new View.OnClickListener() {
+        lose_new_game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(intent);
