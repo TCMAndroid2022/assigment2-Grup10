@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class Ranking extends AppCompatActivity {
+public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemClickListener{
     TextView textView;
     PlayerController playerController;
 
@@ -21,7 +22,6 @@ public class Ranking extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     PlayerAdapter playerAdapter;
     ArrayList<PlayerGlobal> dataSet;
-    ArrayList<PlayerGlobal> dataSet_aux;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +35,7 @@ public class Ranking extends AppCompatActivity {
 
         if(savedInstanceState == null) {
             dataSet = new ArrayList<>();
-            dataSet_aux = new ArrayList<>();
-            playerAdapter = new PlayerAdapter(dataSet);
+            playerAdapter = new PlayerAdapter(dataSet, this);
             recyclerView.setAdapter(playerAdapter);
         }
 
@@ -49,25 +48,21 @@ public class Ranking extends AppCompatActivity {
         for(int i=0; i< players.size(); i++) {
             Player getPlayer = players.get(i);
             PlayerGlobal playerGlobal = new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), getPlayer.getPartides());
-            if(!dataSet_aux.contains(playerGlobal)){
-                dataSet_aux.add(playerGlobal);
+            if(!dataSet.contains(playerGlobal)){
+                dataSet.add(playerGlobal);
             }else{
-                PlayerGlobal p  = dataSet_aux.get(i);
+                PlayerGlobal p  = dataSet.get(i);
                 p.setPuntuacio(p.getPuntuacio()+playerGlobal.getPuntuacio());
                 p.setPartides(p.getPartides()+playerGlobal.getPartides());
-                dataSet_aux.set(i, p);
+                dataSet.set(i, p);
             }
         }
 
-        dataSet.addAll(dataSet_aux);
         playerAdapter.notifyDataSetChanged();
         printData();
     }
 
     private void printData(){
-        for(int i = 0; i < dataSet_aux.size(); i++) {
-            Log.v("AUX", dataSet_aux.get(i).getNickname());
-        }
         for(int i = 0; i < dataSet.size(); i++) {
             Log.v("SET", dataSet.get(i).getNickname());
         }
@@ -90,5 +85,13 @@ public class Ranking extends AppCompatActivity {
             layoutManager = new LinearLayoutManager(this);
         }
         recyclerView.setLayoutManager(layoutManager);
+    }
+
+    @Override
+    public void onItemClick(int position) {
+        Intent intent_info = new Intent(this,RankingInfo.class);
+        intent_info.putExtra("nickname_info", dataSet.get(position).getNickname());
+        Log.v("NICK", dataSet.get(position).getNickname());
+        startActivity(intent_info);
     }
 }
