@@ -20,13 +20,13 @@
         android:layout_weight="2"
         android:padding="10dp" />
 
-    <Button
+    <ImageButton
         android:id="@+id/button"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@drawable/ic_action_arrow"
         android:gravity="center|center_horizontal"
-        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+        android:src="@drawable/play_icon"
+        android:background="@null"/>
 </LinearLayout>
