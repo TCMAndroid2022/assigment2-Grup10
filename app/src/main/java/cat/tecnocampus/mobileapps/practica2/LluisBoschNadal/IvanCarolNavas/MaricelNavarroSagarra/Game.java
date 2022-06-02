@@ -182,33 +182,34 @@ public class Game extends AppCompatActivity {
     }
 
     private void SolucioButton() {
-
         AlertDialog.Builder builder = new AlertDialog.Builder(Game.this);
-        LayoutInflater inflater = Game.this.getLayoutInflater();
         View view = getLayoutInflater().inflate(R.layout.solucio_dialog, null, false);
+
+        Button sol_ok = view.findViewById(R.id.sol_ok);
+        Button sol_cancel = view.findViewById(R.id.sol_cancel);
         EditText solucio = view.findViewById(R.id.et_solucio);
 
-        builder.setView(view)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (solucio.getText().toString().equals(wordToGuess)) {
-                            win = true;
-                            puntuacio = (wordToGuess.length() - lettersTried) * 10;
-                            winDialog();
-                        } else {
-                            puntuacio = 0;
-                            loseDialog();
-                        }
-                    }
-                })
-                .setNegativeButton("CANCEL", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        dialogInterface.cancel();
-                    }
-                })
-                .show();
+        AlertDialog ad = builder.setView(view).show();
+
+        sol_ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (solucio.getText().toString().equals(wordToGuess)) {
+                    win = true;
+                    puntuacio = (wordToGuess.length() - lettersTried) * 10;
+                    winDialog();
+                } else {
+                    puntuacio = 0;
+                    loseDialog();
+                }
+            }
+        });
+        sol_cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ad.cancel();
+            }
+        });
     }
 
     private void winDialog() {
