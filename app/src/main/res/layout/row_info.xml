@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="20dp">
 
     <TextView
         android:id="@+id/info_partides"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="GAMES: " />
+        android:text="@string/GAME" />
 
     <TextView
         android:id="@+id/partida_info"
@@ -22,7 +22,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="SCORE: " />
+        android:text="@string/SCORE"/>
 
     <TextView
         android:id="@+id/puntuacio_info"

@@ -13,21 +13,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/info_nick"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="NICKNAME: " />
+                android:text="@string/NICKNAME" />
 
             <TextView
                 android:id="@+id/info_punt"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="PUNTUACIO:" />
+                android:text="@string/SCORE" />
 
         </LinearLayout>
 

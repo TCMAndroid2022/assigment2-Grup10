@@ -16,8 +16,6 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:hint="Word to Guess"
-        android:text="WordToGuess"
         android:textSize="24sp" />
 
     <TextView
@@ -26,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Introdueix lletra" />
+        android:text="@string/enter_letter" />
 
     <EditText
         android:id="@+id/inputLetter"
@@ -49,6 +47,6 @@
         android:layout_margin="20dp"
         android:gravity="center"
         android:onClick="onSolve"
-        android:text="Solucio final"
+        android:text="@string/final_solution"
         android:textSize="18sp" />
 </LinearLayout>

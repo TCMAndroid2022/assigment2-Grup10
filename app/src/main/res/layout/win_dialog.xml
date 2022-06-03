@@ -21,7 +21,7 @@
         android:layout_marginTop="10dp"
         android:gravity="center"
         android:paddingStart="10dp"
-        android:text="LENGTH WORD: "
+        android:text="@string/length_word"
         android:textSize="16sp" />
 
     <TextView
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:paddingStart="10dp"
-        android:text="LETTERS TRIED: "
+        android:text="@string/letters_tried"
         android:textSize="16sp" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_marginBottom="10dp"
         android:gravity="center"
         android:paddingStart="10dp"
-        android:text="PUNTUACIO: "
+        android:text="@string/SCORE"
         android:textSize="16sp" />
 
     <Button
@@ -49,6 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginBottom="10dp"
-        android:text="NEW GAME"
+        android:text="@string/new_game"
         android:textSize="16sp" />
 </LinearLayout>

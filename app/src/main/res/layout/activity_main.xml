@@ -22,7 +22,7 @@
         android:layout_margin="30dp"
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
-        android:text="JOC DE PARAULES"
+        android:text="@string/joc_de_paraules"
         android:textColor="@color/purple_200"
         android:textSize="34sp" />
 
@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Introdueix nickname" />
+        android:text="@string/enter_nickname" />
 
     <EditText
         android:id="@+id/et_nickname"
@@ -43,7 +43,7 @@
         android:layout_marginRight="10dp"
         android:layout_marginBottom="20dp"
         android:gravity="center"
-        android:hint="nickname"
+        android:hint="@string/nickname"
         android:inputType="textPersonName"
         android:minHeight="48dp" />
 
@@ -56,5 +56,5 @@
         android:enabled="false"
         android:gravity="center"
         android:onClick="startGame"
-        android:text="PLAY" />
+        android:text="@string/play" />
 </LinearLayout>

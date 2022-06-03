@@ -1,3 +1,19 @@
 <resources>
     <string name="app_name">joc de paraules</string>
+    <string name="enter_letter">Enter letter</string>
+    <string name="final_solution">Final solution</string>
+    <string name="joc_de_paraules">JOC DE PARAULES</string>
+    <string name="enter_nickname">Enter nickname</string>
+    <string name="nickname">nickname</string>
+    <string name="play">PLAY</string>
+    <string name="ranking">RANKING</string>
+    <string name="NICKNAME">NICKNAME:</string>
+    <string name="SCORE">SCORE:</string>
+    <string name="GAME">GAME:</string>
+    <string name="length_word">LENGTH WORD:</string>
+    <string name="letters_tried">LETTERS TRIED:</string>
+    <string name="new_game">NEW GAME</string>
+    <string name="enter_solution">Enter solution</string>
+    <string name="cancel">CANCEL</string>
+    <string name="ok">OK</string>
 </resources>
