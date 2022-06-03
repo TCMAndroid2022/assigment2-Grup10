@@ -35,7 +35,6 @@ public class Game extends AppCompatActivity {
     EditText text_InputLetter;
     TextView text_WordToGuess;
 
-    //String url = "https://palabras-aleatorias-public-api.herokuapp.com/random";
     String url = "https://random-word-api.herokuapp.com/word";
     RequestQueue queue;
 

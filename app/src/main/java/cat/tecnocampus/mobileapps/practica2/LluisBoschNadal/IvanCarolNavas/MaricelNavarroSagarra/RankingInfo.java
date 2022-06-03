@@ -68,22 +68,13 @@ public class RankingInfo extends AppCompatActivity {
     private void omplirRecylcerView() {
         int numPartida = 0;
         List<Player> players = playerController.listPlayers();
-        Log.v("SIZE", String.valueOf(players.size()));
         for (int i = 0; i < players.size(); i++) {
             Player getPlayer = players.get(i);
             if(getPlayer.getNickname().equals(nickname)){
                 numPartida++;
-                Log.v("EUQALS", String.valueOf(i));
                 dataSet.add(new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), numPartida));
                 playerInfoAdapter.notifyDataSetChanged();
             }
-        }
-        printData();
-    }
-
-    private void printData(){
-        for(int i = 0; i < dataSet.size(); i++) {
-            Log.v("SET", dataSet.get(i).getNickname()+"  "+ dataSet.get(i).getPuntuacio());
         }
     }
 }

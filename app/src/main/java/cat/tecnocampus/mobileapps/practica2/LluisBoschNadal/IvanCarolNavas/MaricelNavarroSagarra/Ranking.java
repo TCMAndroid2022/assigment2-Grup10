@@ -75,11 +75,6 @@ public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemCl
             playersGlobal.add(new PlayerGlobal(nickname, mapStats.get(nickname).get(0),mapStats.get(nickname).get(1)));
         }
 
-        for(int i = 0; i < playersGlobal.size(); i++) {
-            Log.v("PlayersGlobal", playersGlobal.get(i).getNickname());
-        }
-
-
         Collections.sort(playersGlobal);
         dataSet.addAll(playersGlobal);
 
