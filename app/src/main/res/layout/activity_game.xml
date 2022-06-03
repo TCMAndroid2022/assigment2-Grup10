@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,45 +8,51 @@
     android:paddingStart="10dp"
     tools:context=".Game">
 
-    <TextView
-        android:id="@+id/wordToGuess"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="50dp"
-        android:layout_marginBottom="20dp"
-        android:gravity="center"
-        android:textSize="24sp" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:text="@string/enter_letter" />
+        <TextView
+            android:id="@+id/wordToGuess"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:layout_marginBottom="20dp"
+            android:gravity="center"
+            android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/inputLetter"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
-        android:ems="10"
-        android:gravity="left"
-        android:inputType="textPersonName"
-        android:maxLength="1"
-        android:paddingStart="10dp"
-        tools:ignore="TouchTargetSizeCheck" />
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/enter_letter" />
 
-    <Button
-        android:id="@+id/btn_solution"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="20dp"
-        android:gravity="center"
-        android:onClick="onSolve"
-        android:text="@string/final_solution"
-        android:textSize="18sp" />
-</LinearLayout>
+        <EditText
+            android:id="@+id/inputLetter"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            android:ems="10"
+            android:gravity="left"
+            android:inputType="textPersonName"
+            android:maxLength="1"
+            android:paddingStart="10dp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+        <Button
+            android:id="@+id/btn_solution"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            android:onClick="onSolve"
+            android:text="@string/final_solution"
+            android:textSize="18sp" />
+    </LinearLayout>
+</ScrollView>
