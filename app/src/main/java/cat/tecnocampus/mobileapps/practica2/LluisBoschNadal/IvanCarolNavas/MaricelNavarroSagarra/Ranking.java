@@ -47,21 +47,29 @@ public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemCl
         //mostra correctament a la base de dades i les mostra per consola
         List<Player> players = playerController.listPlayers();
         List<PlayerGlobal> playersGlobal = new ArrayList<>();
-        HashMap<String,Integer> map = new HashMap<>();
+        HashMap<String,List<Integer>> mapStats = new HashMap<>(); //pos 0 = puntuacio, pos 1 = partides
 
 
         for(int i=0; i < players.size(); i++) {
             Player getPlayer = players.get(i);
-            if(map.containsKey(getPlayer.getNickname())){
-                int puntuacio_old = map.get(getPlayer.getNickname());
-                map.put(getPlayer.getNickname(), getPlayer.getPuntuacio()+puntuacio_old);
+            if(mapStats.containsKey(getPlayer.getNickname())){
+                ArrayList<Integer> info = new ArrayList<>();
+                int puntuacio_old = mapStats.get(getPlayer.getNickname()).get(0);
+                int partides_old = mapStats.get(getPlayer.getNickname()).get(1);
+                info.add(0, getPlayer.getPuntuacio()+puntuacio_old);
+                info.add(1, partides_old+1);
+                mapStats.put(getPlayer.getNickname(), info);
+
             }else{
-                map.put(getPlayer.getNickname(), getPlayer.getPuntuacio());
+                ArrayList<Integer> info = new ArrayList<>();
+                info.add(0, getPlayer.getPuntuacio());
+                info.add(1, 1);
+                mapStats.put(getPlayer.getNickname(), info);
             }
 
         }
-        for(String nickname : map.keySet()){
-            playersGlobal.add(new PlayerGlobal(nickname,1, map.get(nickname)));
+        for(String nickname : mapStats.keySet()){
+            playersGlobal.add(new PlayerGlobal(nickname, mapStats.get(nickname).get(0),mapStats.get(nickname).get(1)));
         }
 
         for(int i = 0; i < playersGlobal.size(); i++) {
@@ -71,15 +79,9 @@ public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemCl
         dataSet.addAll(playersGlobal);
 
         playerAdapter.notifyDataSetChanged();
-        //printData();
+        
     }
 
-    /*private void printData(){
-        for(int i = 0; i < dataSet.size(); i++) {
-            Log.v("SET", dataSet.get(i).getNickname());
-        }
-    }
-    */
     @Override
     public boolean onSupportNavigateUp(){
         finish();
