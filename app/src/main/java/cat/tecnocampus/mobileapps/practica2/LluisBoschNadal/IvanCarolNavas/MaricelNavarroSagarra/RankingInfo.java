@@ -51,7 +51,7 @@ public class RankingInfo extends AppCompatActivity {
             nickname = extras.getString("nickname_info");
         }
 
-        textView_nickname.setText(textView_nickname.getText()+nickname);
+        textView_nickname.setText(new StringBuilder().append(textView_nickname.getText()).append(nickname).toString());
 
         omplirRecylcerView();
     }
@@ -63,15 +63,16 @@ public class RankingInfo extends AppCompatActivity {
     }
 
     private void omplirRecylcerView() {
+        int numPartida = 0;
         List<Player> players = playerController.listPlayers();
         Log.v("SIZE", String.valueOf(players.size()));
         for (int i = 0; i < players.size(); i++) {
             Player getPlayer = players.get(i);
-            PlayerGlobal playerGlobal = new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), getPlayer.getPartides());
             if(getPlayer.getNickname().equals(nickname)){
+                numPartida++;
                 Log.v("EUQALS", String.valueOf(i));
-                dataSet.add(playerGlobal);//lo fascinente es que el dataSet tiene los valores correctos
-                playerInfoAdapter.notifyDataSetChanged();// no hace el notify bien y no se porque ;(
+                dataSet.add(new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), numPartida));
+                playerInfoAdapter.notifyDataSetChanged();
             }
         }
         printData();
