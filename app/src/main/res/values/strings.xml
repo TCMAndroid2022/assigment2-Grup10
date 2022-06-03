@@ -16,4 +16,5 @@
     <string name="enter_solution">Enter solution</string>
     <string name="cancel">CANCEL</string>
     <string name="ok">OK</string>
+    <string name="todo">TODO</string>
 </resources>
