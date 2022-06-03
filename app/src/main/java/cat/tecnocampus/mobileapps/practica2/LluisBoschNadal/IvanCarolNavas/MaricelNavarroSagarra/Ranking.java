@@ -110,7 +110,7 @@ public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemCl
     public void onItemClick(int position) {
         Intent intent_info = new Intent(this,RankingInfo.class);
         intent_info.putExtra("nickname_info", dataSet.get(position).getNickname());
-        Log.v("NICK", dataSet.get(position).getNickname());
+        intent_info.putExtra("puntuacio_info", dataSet.get(position).getPuntuacio());
         startActivity(intent_info);
     }
 }

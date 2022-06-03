@@ -51,12 +51,4 @@
         android:onClick="onSolve"
         android:text="Solucio final"
         android:textSize="18sp" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="552dp"
-        android:background="@drawable/lletres2">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
 </LinearLayout>

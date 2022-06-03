@@ -16,6 +16,7 @@ public class RankingInfo extends AppCompatActivity {
     TextView textView_puntuacio;
 
     String nickname;
+    int puntuacio;
 
     ArrayList<PlayerGlobal> dataSet;
     RecyclerView recyclerView;
@@ -49,9 +50,11 @@ public class RankingInfo extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             nickname = extras.getString("nickname_info");
+            puntuacio = extras.getInt("puntuacio_info");
         }
 
         textView_nickname.setText(new StringBuilder().append(textView_nickname.getText()).append(nickname).toString());
+        textView_puntuacio.setText(new StringBuilder().append(textView_puntuacio.getText()).append(String.valueOf(puntuacio)).toString());
 
         omplirRecylcerView();
     }
