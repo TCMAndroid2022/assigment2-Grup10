@@ -71,7 +71,7 @@ public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemCl
         dataSet.addAll(playersGlobal);
 
         playerAdapter.notifyDataSetChanged();
-        printData();
+        //printData();
     }
 
     /*private void printData(){
