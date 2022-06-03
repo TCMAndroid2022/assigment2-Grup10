@@ -36,6 +36,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         PlayerGlobal currentPlayer = data.get(position);
         holder.tv_llistat_nick.setText(String.valueOf(currentPlayer.getNickname()));
         holder.tv_llistat_punt.setText(String.valueOf(currentPlayer.getPuntuacio()));
+        holder.tv_llistat_part.setText(String.valueOf(currentPlayer.getPartides()));
     }
 
     @Override
@@ -46,6 +47,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     public class ViewHolder extends RecyclerView.ViewHolder{
         public TextView tv_llistat_nick;
         public TextView tv_llistat_punt;
+        public TextView tv_llistat_part;
         public ImageButton btn_info;
         OnItemClickListener onItemClickListener;
 
@@ -53,6 +55,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
             super(itemView);
             this.tv_llistat_nick = itemView.findViewById(R.id.tv_llista_nickname);
             this.tv_llistat_punt = itemView.findViewById(R.id.tv_llista_puntuacio);
+            this.tv_llistat_part = itemView.findViewById(R.id.tv_llista_partides);
             this.btn_info = itemView.findViewById(R.id.btn_info);
             this.onItemClickListener = onItemClickListener;
 

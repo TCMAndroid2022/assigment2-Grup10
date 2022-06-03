@@ -65,9 +65,11 @@ public class PlayerGlobal implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(nickname);
         parcel.writeInt(puntuacio);
+        parcel.writeInt(partides);
     }
     private void readFromParcel(Parcel in){
         nickname = in.readString();
         puntuacio =  in.readInt();
+        partides = in.readInt();
     }
 }
