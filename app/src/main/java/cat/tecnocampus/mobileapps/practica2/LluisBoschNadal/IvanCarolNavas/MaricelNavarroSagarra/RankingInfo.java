@@ -1,7 +1,7 @@
 package cat.tecnocampus.mobileapps.practica2.LluisBoschNadal.IvanCarolNavas.MaricelNavarroSagarra;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -31,8 +31,8 @@ public class RankingInfo extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        textView_nickname = (TextView) findViewById(R.id.info_nickname);
-        textView_puntuacio = (TextView) findViewById(R.id.info_puntuacio);
+        textView_nickname = (TextView) findViewById(R.id.info_nick);
+        textView_puntuacio = (TextView) findViewById(R.id.info_punt);
         recyclerView = (RecyclerView) findViewById(R.id.info_recycleView);
 
         playerController = new PlayerController(getApplication());
@@ -43,7 +43,7 @@ public class RankingInfo extends AppCompatActivity {
             recyclerView.setAdapter(playerInfoAdapter);
         }
 
-        layoutManager = new GridLayoutManager(this,1);
+        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         Bundle extras = getIntent().getExtras();
@@ -51,7 +51,7 @@ public class RankingInfo extends AppCompatActivity {
             nickname = extras.getString("nickname_info");
         }
 
-        textView_nickname.setText(new StringBuilder().append(textView_nickname.getText()).append(nickname).toString());
+        textView_nickname.setText(textView_nickname.getText()+nickname);
 
         omplirRecylcerView();
     }
