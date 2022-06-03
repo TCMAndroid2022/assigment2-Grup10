@@ -3,7 +3,7 @@ package cat.tecnocampus.mobileapps.practica2.LluisBoschNadal.IvanCarolNavas.Mari
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class PlayerGlobal implements Parcelable{
+public class PlayerGlobal implements Parcelable, Comparable<PlayerGlobal>{
     public String nickname;
     public int puntuacio;
     public int partides;
@@ -71,5 +71,11 @@ public class PlayerGlobal implements Parcelable{
         nickname = in.readString();
         puntuacio =  in.readInt();
         partides = in.readInt();
+    }
+
+    // Overriding compareTo() method
+    @Override
+    public int compareTo(PlayerGlobal p) {
+        return Integer.compare(p.getPuntuacio(), this.getPuntuacio());
     }
 }

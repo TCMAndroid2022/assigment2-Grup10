@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -47,6 +49,7 @@ public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemCl
         //mostra correctament a la base de dades i les mostra per consola
         List<Player> players = playerController.listPlayers();
         List<PlayerGlobal> playersGlobal = new ArrayList<>();
+
         HashMap<String,List<Integer>> mapStats = new HashMap<>(); //pos 0 = puntuacio, pos 1 = partides
 
 
@@ -76,10 +79,12 @@ public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemCl
             Log.v("PlayersGlobal", playersGlobal.get(i).getNickname());
         }
 
+
+        Collections.sort(playersGlobal);
         dataSet.addAll(playersGlobal);
 
         playerAdapter.notifyDataSetChanged();
-        
+
     }
 
     @Override
