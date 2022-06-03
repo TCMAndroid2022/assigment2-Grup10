@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemClickListener{
@@ -44,22 +45,67 @@ public class Ranking extends AppCompatActivity implements PlayerAdapter.OnItemCl
 
         //mostra correctament a la base de dades i les mostra per consola
         List<Player> players = playerController.listPlayers();
+        List<PlayerGlobal> playersGlobal = new ArrayList<>();
+
+        playersGlobal.add(new PlayerGlobal(players.get(0).getNickname(), 1, players.get(0).getPuntuacio()));
 
         for(int i=0; i< players.size(); i++) {
             Player getPlayer = players.get(i);
-            PlayerGlobal playerGlobal = new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), getPlayer.getPartides());
+
+            //playersGlobal.add(new PlayerGlobal(getPlayer.getNickname(), 1 , getPlayer.getPuntuacio()));
+
+            for( int j = 0; j < playersGlobal.size(); j++){
+                PlayerGlobal playerGlobal = playersGlobal.get(j);
+                if(getPlayer.getNickname().equals(playerGlobal.getNickname())){
+                    playersGlobal.set(j,new PlayerGlobal("patata"/*getPlayer.getNickname()*/, 1 , getPlayer.getPuntuacio()));
+                }else{
+                    playersGlobal.add(new PlayerGlobal(getPlayer.getNickname(), 1 , getPlayer.getPuntuacio()));
+                }
+
+            }
+
+
+
+
+            /*PlayerGlobal playerGlobal = new PlayerGlobal(getPlayer.getNickname(), getPlayer.getPuntuacio(), getPlayer.getPartides());
             if(!dataSet.contains(playerGlobal)){
                 dataSet.add(playerGlobal);
+                //searchAndRepalceDataSet(playerGlobal.getNickname(), playerGlobal.getPuntuacio());
             }else{
                 PlayerGlobal p  = dataSet.get(i);
                 p.setPuntuacio(p.getPuntuacio()+playerGlobal.getPuntuacio());
                 p.setPartides(p.getPartides()+playerGlobal.getPartides());
                 dataSet.set(i, p);
-            }
+            }*/
+
+        }
+        for(int i = 0; i < playersGlobal.size(); i++) {
+            Log.v("PlayersGlobal", playersGlobal.get(i).getNickname());
         }
 
+        dataSet.addAll(playersGlobal);
         playerAdapter.notifyDataSetChanged();
         printData();
+    }
+
+    private void searchAndRepalceDataSet(String nickname, int puntuacio){
+
+        for(int i = 0; i < dataSet.size(); i++){
+            PlayerGlobal playerGlobal = dataSet.get(i);
+            if(playerGlobal.getNickname().equals(nickname)){
+                dataSet.set(i,new PlayerGlobal(nickname,1, puntuacio));
+            }else{
+                dataSet.add(new PlayerGlobal(nickname,1, puntuacio));
+            }
+        }
+        /*Iterator<PlayerGlobal> it = dataSet.iterator();
+        while(it.hasNext()) {
+            PlayerGlobal i = it.next();
+            if(i.getNickname().equals(nickname)) {
+                it.remove();
+                it.
+            }
+        }*/
     }
 
     private void printData(){
